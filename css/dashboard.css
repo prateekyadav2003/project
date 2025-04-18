@@ -1,122 +1,352 @@
-@media (max-width: 768px) {
-    .profile-img-container {
-        text-align: center;
-        padding-bottom: 32px;
-    }
+/*---------------------------------------
+  1) Global & Layout
+---------------------------------------*/
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
 }
 
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #1e1e2d;
+  color: #f5f5f5;
+}
+
+/* Make main containers not shrink, and push footer down */
+body > header,
+body > nav,
+body > .my-profile,
+body > .my-interested-properties {
+  flex-shrink: 0;
+}
+body > .spacer {
+  flex: 1; /* add <div class="spacer"></div> before footer */
+}
+
+/*---------------------------------------
+  2) Navbar / Breadcrumb
+---------------------------------------*/
+header .navbar,
+nav.breadcrumb {
+  background-color: #2d2d44 !important;
+  padding: 10px 20px !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+}
+
+header .navbar-brand,
+nav.breadcrumb .breadcrumb-item a {
+  color: #4B47D9 !important;
+  font-weight: 600;
+}
+
+header .navbar-nav .nav-link {
+  color: #f5f5f5 !important;
+  font-weight: 600;
+  margin-right: 15px;
+}
+header .navbar-nav .nav-link:hover,
+nav.breadcrumb .breadcrumb-item.active {
+  color: #4B47D9 !important;
+}
+
+/*---------------------------------------
+  3) Profile Card
+---------------------------------------*/
+.my-profile.page-container {
+  background-color: #2d2d44;
+  border-radius: 12px;
+  padding: 30px 20px;
+  max-width: 800px;
+  margin: 20px auto;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
+}
+
+.profile-img-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
 .profile-img {
-    color: #7d7d7d;
-    font-size: 75px;
-    text-align: center;
-    border: 1px solid #e4e4e4;
-    border-radius: 50%;
-    height: 100px;
-    width: 100px;
-    line-height: 100px;
+  color: #4B47D9;
+  font-size: 75px;
+  border: 2px solid #4B47D9;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  line-height: 100px;
+  background-color: #29293d;
 }
 
 .profile .name {
-    font-weight: bold;
+  font-size: 22px;
+  font-weight: 700;
+  text-align: center;
+  color: #ffffff;
+  margin-top: 12px;
+}
+.profile .email,
+.profile .phone,
+.profile .college {
+  font-size: 14px;
+  color: #c2c2c2;
+  text-align: center;
+  margin-top: 4px;
 }
 
 .edit-profile {
-    font-size: 10px;
-    text-decoration: underline;
-    cursor: pointer;
+  display: block;
+  text-align: center;
+  margin-top: 10px;
+  font-size: 12px;
+  text-decoration: underline;
+  color: #4B47D9;
+  cursor: pointer;
 }
 
+/*---------------------------------------
+  4) Interested Properties Section
+---------------------------------------*/
 .my-interested-properties {
-    background-color: #fcfaf7;
+  background-color: #1e1e2d;
+  padding: 20px 0;
 }
 
+/* Base card styling */
 .property-card {
-    background-color: #ffffff;
-    border-radius: 2px;
-    padding: 15px 0px;
-    margin: 20px auto;
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  background-color: #2d2d44;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 25px auto;
+  max-width: 800px;
+  border-left: 6px solid #4B47D9;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
-.property-card:focus,
-.property-card:hover {
-    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+/* Remove extra gutter margins inside Bootstrap rows */
+.property-card .row {
+  margin: 0;
 }
 
-.image-container {
-    text-align: center;
+/* Flex children */
+.property-card .image-container {
+  flex: 0 0 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.property-card .content-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0 15px;
 }
 
-@media (max-width: 768px) {
-    .image-container {
-        padding-bottom: 12px;
-    }
-}
-
+/* Image styling + hover scale */
 .image-container img {
-    width: 100%;
-    max-width: 300px;
+  width: 100%;
+  max-width: 280px;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+.property-card:hover img {
+  transform: scale(1.05);
 }
 
-.star-container i {
-    color: #EA322E;
-    font-size: 10px;
-    margin-right: 6px;
+/* 1) Define the glow animation */
+@keyframes card-glow {
+    0% {
+      box-shadow: 0 6px 15px rgba(75, 71, 217, 0.4), 0 0 0 rgba(75, 71, 217, 0);
+    }
+    50% {
+      box-shadow: 0 6px 20px rgba(75, 71, 217, 0.7), 0 0 20px rgba(75, 71, 217, 0.3);
+    }
+    100% {
+      box-shadow: 0 6px 15px rgba(75, 71, 217, 0.4), 0 0 0 rgba(75, 71, 217, 0);
+    }
+  }
+  
+  /* 2) Apply it on hover */
+  .property-card:hover {
+    transform: translateY(-4px);
+    border-color: #6b68d1;
+    /* remove the old static box-shadow or keep it as base */
+    /* box-shadow: 0 10px 30px rgba(75, 71, 217, 0.3); */
+    animation: card-glow 1.5s ease-in-out infinite alternate;
+  }
+
+/* Title color on hover */
+.property-card:hover .property-name {
+  color: #6b68d1;
 }
 
-.interested-container {
-    text-align: center;
-    padding: 8px 16px;
-}
-
-.interested-container i {
-    color: #EA322E;
-    font-size: 20px;
-    cursor: pointer;
-}
-
-.interested-text {
-    font-size: 10px;
-}
-
-.detail-container {
-    padding-bottom: 10px;
-}
-
+/* Content text */
 .property-name {
-    font-size: 18px;
-    font-weight: 600;
+  font-size: 20px;
+  font-weight: 600;
+  color: #ffffff;
 }
-
 .property-address {
-    color: #6f6f6f;
-    font-size: 13px;
-    padding-bottom: 5px;
+  font-size: 14px;
+  color: #a6a6a6;
+  margin: 5px 0 10px;
 }
 
-.property-gender img {
-    width: 40px;
+/* Ratings & interest */
+.star-container i {
+  color: #FFD700;
+  margin-right: 4px;
+}
+.interested-container i {
+  color: #ff4b4b;
+  font-size: 20px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.interested-container i:hover {
+  transform: scale(1.1);
 }
 
+/* Rent & button */
 .rent-container {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
 }
-
 .rent {
-    font-size: 18px;
-    font-weight: bold;
-    padding-right: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #4B47D9;
+  margin-right: 6px;
 }
-
 .rent-unit {
-    color: #6f6f6f;
-    font-size: 12px;
+  font-size: 12px;
+  color: #999;
 }
 
-.button-container .btn {
-    font-size: 14px;
-    border-radius: 0px;
-    width: 140px;
-    float: right;
+.button-container .btn,
+.btn-primary {
+  background-color: #4B47D9 !important;
+  border-color: #4B47D9 !important;
+  border-radius: 6px;
+  padding: 10px 16px;
+  font-size: 14px;
+  color: #fff !important;
+  transition: background 0.3s;
 }
+.button-container .btn:hover,
+.btn-primary:hover {
+  background-color: #3a39b3 !important;
+  border-color: #3a39b3 !important;
+}
+
+/*---------------------------------------
+  5) Sticky Footer
+---------------------------------------*/
+footer {
+  background-color: #2d2d44;
+  color: #c2c2c2;
+  text-align: center;
+  padding: 15px 20px;
+  position: sticky;
+  top: 100vh;
+  margin-top: 20px;
+}
+
+/*---------------------------------------
+  6) Responsive Tweaks
+---------------------------------------*/
+@media (max-width: 768px) {
+  .property-card {
+    flex-direction: column;
+  }
+  .property-card .image-container,
+  .property-card .content-container {
+    flex: 1 1 100%;
+    padding: 10px 0;
+  }
+}
+.edit-profile-modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.7);
+  font-family: Arial, sans-serif;
+}
+
+.modal-content {
+  background-color: #1f1f2e;
+  margin: 5% auto;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  color: #fff;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+.close-btn {
+  color: #fff;
+  float: right;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+h2 {
+  margin-top: 0;
+  text-align: center;
+  color: #4B47D9;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  background-color: #2b2b3d;
+  border: 1px solid #4B47D9;
+  color: #fff;
+  border-radius: 4px;
+}
+
+button[type="submit"] {
+  width: 100%;
+  background-color: #4B47D9;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background-color: #6a67e8;
+}
+
