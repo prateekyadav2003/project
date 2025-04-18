@@ -76,8 +76,8 @@ $interested_properties = mysqli_fetch_all($result_2, MYSQLI_ASSOC);
                         <div class="college"><?= $user['college_name'] ?></div>
                     </div>
                     <div class="edit">
-                        <div class="edit-profile">Edit Profile</div>
-                    </div>
+    <div class="edit-profile" id="editProfileBtn">Edit Profile</div>
+</div>
                 </div>
             </div>
         </div>
@@ -174,6 +174,34 @@ $interested_properties = mysqli_fetch_all($result_2, MYSQLI_ASSOC);
     ?>
 
     <script type="text/javascript" src="js/dashboard.js"></script>
+
+    <!-- here is the edit form html  -->
+    <div class="edit-profile-modal" id="editProfileModal">
+    <div class="modal-content">
+        <span class="close-btn" id="closeModal">&times;</span>
+        <h2>Edit Profile</h2>
+        <form id="editProfileForm">
+            <div class="form-group">
+                <label for="fullName">Name</label>
+                <input type="text" id="fullName" name="fullName" value="<?= $user['full_name'] ?>" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" value="<?= $user['email'] ?>" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Mobile No</label>
+                <input type="text" id="phone" name="phone" value="<?= $user['phone'] ?>" required>
+            </div>
+            <div class="form-group">
+                <label for="college">College Name</label>
+                <input type="text" id="college" name="college" value="<?= $user['college_name'] ?>" required>
+            </div>
+            <button type="submit">Update Profile</button>
+        </form>
+    </div>
+</div>
+
 </body>
 
 </html>
