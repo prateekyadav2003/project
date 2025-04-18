@@ -33,3 +33,31 @@ var remove_interested_success = function (event) {
         document.getElementsByClassName("property-id-" + property_id)[0].style.display = 'none';
     }
 };
+//js for edit page popup
+// Wait for the page to fully load
+window.addEventListener('load', function () {
+    const editProfileBtn = document.getElementById("editProfileBtn");
+    const closeModalBtn = document.getElementById("closeModal");
+    const modal = document.getElementById("editProfileModal");
+
+    // Open the modal when the "Edit Profile" button is clicked
+    if (editProfileBtn) {
+        editProfileBtn.onclick = function () {
+            modal.style.display = "block";
+        };
+    }
+
+    // Close the modal when the "X" button (closeModal) is clicked
+    if (closeModalBtn) {
+        closeModalBtn.onclick = function () {
+            modal.style.display = "none";
+        };
+    }
+
+    // Close the modal if the user clicks anywhere outside the modal content
+    window.onclick = function (event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    };
+});
