@@ -113,6 +113,83 @@
         color: #4b47d9;
         text-shadow: 0 0 10px rgba(75, 71, 217, 0.8);
     }
+    /* here is the css for the forgot_password */
+    #forgot-password-modal .modal-content {
+        background-color: #2d2d2d;
+        color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        border: 2px solid #4b47d9;
+    }
+
+    #forgot-password-modal .modal-header {
+        padding: 1rem;
+        border-bottom: 1px solid #444;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    #forgot-password-modal .modal-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: white;
+    }
+
+    #forgot-password-modal .close {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+
+    #forgot-password-modal .modal-body {
+        padding: 1.5rem;
+    }
+
+    #forgot-password-modal .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    #forgot-password-modal .form-group label {
+        display: block;
+        font-size: 0.875rem;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+        color: white;
+    }
+
+    #forgot-password-modal .form-group input {
+        width: 100%;
+        padding: 0.75rem;
+        border-radius: 6px;
+        background-color: #3a3a3a;
+        color: white;
+        border: 1px solid #555;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    #forgot-password-modal .form-group input:focus {
+        border-color: #4b47d9;
+        box-shadow: 0 0 0 2px rgba(75, 71, 217, 0.3);
+    }
+
+    #forgot-password-modal .btn-primary {
+        width: 100%;
+        background-color: #4b47d9;
+        color: white;
+        padding: 0.75rem 1rem;
+        border-radius: 6px;
+        font-weight: 500;
+        transition: background-color 0.3s ease;
+        border: none;
+        cursor: pointer;
+    }
+
+    #forgot-password-modal .btn-primary:hover {
+        background-color: #3d39c1;
+    }
 </style>
 
 <div class="modal login-modal" id="login-modal" tabindex="-1" aria-labelledby="login-heading" aria-hidden="true">
