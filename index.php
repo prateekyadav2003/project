@@ -37,8 +37,8 @@ session_start();
 
     <?php 
     include "includes/features.php";
-    ?>
-
+    include "includes/bannerforpgowners.php";
+?>
     <div class="page-container">
         <h1 class="city-heading">
             Major Cities
