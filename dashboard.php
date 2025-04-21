@@ -191,7 +191,7 @@ $interested_properties = mysqli_fetch_all($result_2, MYSQLI_ASSOC);
             </div>
             <div class="form-group">
                 <label for="phone">Mobile No</label>
-                <input type="text" id="phone" name="phone" value="<?= $user['phone'] ?>" required>
+                <input type="text" id="phone" name="phone"  value="<?= $user['phone'] ?>" required>
             </div>
             <div class="form-group">
                 <label for="college">College Name</label>
