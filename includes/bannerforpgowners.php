@@ -7,6 +7,7 @@
     justify-content: center;
     align-items: center;
     height: ;
+    margin-bottom: 20px;
   }
 
   .ultimate-pg-banner {
