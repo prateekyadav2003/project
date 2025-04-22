@@ -34,12 +34,13 @@ session_start();
             </div>
         </form>
     </div>
-<?php
-include "includes/listing.php"
-?>
+
     <?php 
     include "includes/features.php";
     include "includes/bannerforpgowners.php";
+?>
+<?php
+include "includes/listing.php";
 ?>
     <div class="page-container">
         <h1 class="city-heading">
