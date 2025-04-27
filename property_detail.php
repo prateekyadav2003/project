@@ -50,6 +50,23 @@ if (!$result_4) {
 }
 $interested_users = mysqli_fetch_all($result_4, MYSQLI_ASSOC);
 $interested_users_count = mysqli_num_rows($result_4);
+
+// 5) Check if property is already booked
+$sql_5 = "
+  SELECT 1
+    FROM bookings
+   WHERE property_id = $property_id
+     AND status = 'confirmed'
+   LIMIT 1
+";
+$result_5 = mysqli_query($conn, $sql_5);
+if (!$result_5) {
+    echo "Something went wrong checking booking status!";
+    return;
+}
+$is_booked = mysqli_num_rows($result_5) > 0;
+
+
 ?>
 
 <!DOCTYPE html>
@@ -193,8 +210,17 @@ $interested_users_count = mysqli_num_rows($result_4);
                 <div class="rent-unit">per month</div>
             </div>
             <div class="button-container col-6">
-                <a href="#" class="btn btn-primary">Book Now</a>
-            </div>
+  <?php if ($is_booked): ?>
+    <!-- show a disabled “Booked” button -->
+    <button class="btn btn-secondary" disabled>Booked</button>
+  <?php else: ?>
+    <!-- still available -->
+    <a href="book_pg.php?property_id=<?= $property_id ?>" class="btn btn-primary">
+      Book Now
+    </a>
+  <?php endif; ?>
+</div>
+
         </div>
     </div>
 
