@@ -1,3 +1,4 @@
+
 <?php
 session_start();
 ?>
@@ -7,7 +8,7 @@ session_start();
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome | PG Life</title>
+    <title>Welcome | PG Finder</title>
 
     <?php
     include "includes/head_links.php";
@@ -21,7 +22,7 @@ session_start();
     ?>
 
     <div class="banner-container">
-        <h2 class="white pb-3">Happiness per Square Foot</h2>
+        <h2 class="white pb-3">The Perfect PG, Just a Click Away.</h2>
 
         <form id="search-form" action="property_list.php" method="GET">
             <div class="input-group city-search">
@@ -40,7 +41,7 @@ session_start();
     include "includes/bannerforpgowners.php";
 ?>
 <?php
-include "includes/listing.php";
+include "includes/listing.php"
 ?>
     <div class="page-container">
         <h1 class="city-heading">
