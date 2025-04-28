@@ -1,352 +1,424 @@
-/*---------------------------------------
-  1) Global & Layout
----------------------------------------*/
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Inter', sans-serif;
-}
-
-html, body {
-  height: 100%;
-}
-
-body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  background-color: #1e1e2d;
-  color: #f5f5f5;
-}
-
-/* Make main containers not shrink, and push footer down */
-body > header,
-body > nav,
-body > .my-profile,
-body > .my-interested-properties {
-  flex-shrink: 0;
-}
-body > .spacer {
-  flex: 1; /* add <div class="spacer"></div> before footer */
-}
-
-/*---------------------------------------
-  2) Navbar / Breadcrumb
----------------------------------------*/
-header .navbar,
-nav.breadcrumb {
-  background-color: #2d2d44 !important;
-  padding: 10px 20px !important;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
-}
-
-header .navbar-brand,
-nav.breadcrumb .breadcrumb-item a {
-  color: #4B47D9 !important;
-  font-weight: 600;
-}
-
-header .navbar-nav .nav-link {
-  color: #f5f5f5 !important;
-  font-weight: 600;
-  margin-right: 15px;
-}
-header .navbar-nav .nav-link:hover,
-nav.breadcrumb .breadcrumb-item.active {
-  color: #4B47D9 !important;
-}
-
-/*---------------------------------------
-  3) Profile Card
----------------------------------------*/
-.my-profile.page-container {
-  background-color: #2d2d44;
-  border-radius: 12px;
-  padding: 30px 20px;
-  max-width: 800px;
-  margin: 20px auto;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
-}
-
-.profile-img-container {
-  text-align: center;
-  margin-bottom: 20px;
-}
-.profile-img {
-  color: #4B47D9;
-  font-size: 75px;
-  border: 2px solid #4B47D9;
-  border-radius: 50%;
-  width: 100px;
-  height: 100px;
-  line-height: 100px;
-  background-color: #29293d;
-}
-
-.profile .name {
-  font-size: 22px;
-  font-weight: 700;
-  text-align: center;
-  color: #ffffff;
-  margin-top: 12px;
-}
-.profile .email,
-.profile .phone,
-.profile .college {
-  font-size: 14px;
-  color: #c2c2c2;
-  text-align: center;
-  margin-top: 4px;
-}
-
-.edit-profile {
-  display: block;
-  text-align: center;
-  margin-top: 10px;
-  font-size: 12px;
-  text-decoration: underline;
-  color: #4B47D9;
-  cursor: pointer;
-}
-
-/*---------------------------------------
-  4) Interested Properties Section
----------------------------------------*/
-.my-interested-properties {
-  background-color: #1e1e2d;
-  padding: 20px 0;
-}
-
-/* Base card styling */
-.property-card {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  background-color: #2d2d44;
-  border-radius: 12px;
-  padding: 20px;
-  margin: 25px auto;
-  max-width: 800px;
-  border-left: 6px solid #4B47D9;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-}
-
-/* Remove extra gutter margins inside Bootstrap rows */
-.property-card .row {
-  margin: 0;
-}
-
-/* Flex children */
-.property-card .image-container {
-  flex: 0 0 40%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.property-card .content-container {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 0 15px;
-}
-
-/* Image styling + hover scale */
-.image-container img {
-  width: 100%;
-  max-width: 280px;
-  border-radius: 8px;
-  transition: transform 0.3s ease;
-}
-.property-card:hover img {
-  transform: scale(1.05);
-}
-
-/* 1) Define the glow animation */
-@keyframes card-glow {
-    0% {
-      box-shadow: 0 6px 15px rgba(75, 71, 217, 0.4), 0 0 0 rgba(75, 71, 217, 0);
+/* ==============================
+   VARIABLES & RESETS
+   ============================== */
+   :root {
+    --primary-color: #6360f1;
+    --page-bg: #0f172a;
+    --card-bg: #1e293b;
+    --text-light: #f1f5f9;
+    --text-muted: #94a3b8;
+    --radius: 8px;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    background: var(--page-bg);
+    color: var(--text-light);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.5;
+    overflow-x: hidden;  /* prevent page scroll */
+  }
+  
+  /* ==============================
+     PAGE CONTAINER
+     ============================== */
+  .page-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto 2rem;
+    padding: 1rem;
+  }
+  
+  /* ==============================
+     CARD STYLING FOR SECTIONS
+     ============================== */
+  .my-profile.page-container,
+  .page-container.my-4,
+  .my-interested-properties .page-container {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 1.5rem;
+  }
+  
+  /* ==============================
+     SECTION HEADINGS
+     ============================== */
+  .page-container h1 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: var(--text-light);
+    border-bottom: 2px solid var(--primary-color);
+    display: inline-block;
+    padding-bottom: 0.2rem;
+  }
+  
+  /* ==============================
+     MY PROFILE
+     ============================== */
+  .my-profile .row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  
+  .profile-img-container {
+    flex: 0 0 120px;
+    width: 120px;
+    height: 120px;
+    background: var(--page-bg);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1.5rem;
+  }
+  
+  .profile-img-container .profile-img {
+    font-size: 4rem;
+    color: var(--text-muted);
+  }
+  
+  .my-profile .col-md-9 > .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+  }
+  
+  .profile {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .profile .name {
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 0.3rem;
+  }
+  
+  .profile .email,
+  .profile .phone,
+  .profile .college {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-bottom: 0.2rem;
+  }
+  
+  .edit .edit-profile {
+    background: var(--primary-color);
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  
+  .edit .edit-profile:hover {
+    opacity: 0.9;
+  }
+  
+  /* ==============================
+     MY BOOKINGS
+     ============================== */
+  .page-container.my-4 table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    /* display: block;        enable scroll if needed */
+    overflow-x: auto;
+  }
+  
+  .page-container.my-4 th,
+  .page-container.my-4 td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    white-space: nowrap;
+    border-bottom: 1px solid var(--text-muted);
+  }
+  
+  .page-container.my-4 thead tr {
+    background: var(--primary-color);
+    color: #fff;
+  }
+  
+  .page-container.my-4 tbody tr:nth-child(even) {
+    background: #182339;
+  }
+  
+  .page-container.my-4 a.btn {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  
+  .page-container.my-4 a.btn:hover {
+    background: var(--primary-color);
+    color: #fff;
+  }
+  
+  /* ==============================
+     INTERESTED PROPERTIES
+     ============================== */
+  .my-interested-properties .property-card {
+    display: flex;
+    background: whitesmoke;
+    color: #1b1b1c;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    margin-left: initial;
+    position: relative;
+    width: 100%;
+  }
+  
+  .property-card .image-container {
+    flex: 0 0 35%;
+    max-width: 35%;
+    /* height: 150px; */
+    padding: 0px;
+  }
+  
+  .property-card .image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .property-card .content-container {
+    flex: 1;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .star-container i {
+    color: var(--primary-color);
+    margin-right: 0.25rem;
+  }
+  
+  .property-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 0.5rem 0 0.3rem;
+  }
+  
+  .property-address {
+    font-size: 0.9rem;
+    color: #323335;
+    margin-bottom: 0.5rem;
+  }
+  
+  .property-gender img {
+    width: 24px !important;
+    height: 24px !important;
+    object-fit: contain;
+    margin-right: 0.25rem;
+    vertical-align: middle;
+  }
+  
+  /* push rent & button to bottom */
+  .property-card .content-container > *:last-child {
+    margin-top: auto;
+  }
+  
+  .rent-container .rent {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--text-light);
+  }
+  
+  .rent-unit {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-left: 0.25rem;
+  }
+  
+  .button-container {
+    margin-top: 1rem;
+    text-align: right;
+  }
+  
+  .button-container .btn-primary {
+    background: var(--primary-color) !important;
+    color: #fff !important;
+    border: none !important;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius) !important;
+    transition: opacity 0.2s;
+  }
+  
+  .button-container .btn-primary:hover {
+    opacity: 0.9;
+  }
+  
+  .interested-container {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    align-items: center;
+  }
+  
+  .interested-container .fas.fa-heart,
+  .interested-container .is-interested-image {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    margin-right: 0.4rem;
+    cursor: pointer;
+  }
+  
+  .interested-container .interested-count {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+  
+  /* ==============================
+     MAP STYLING
+     ============================== */
+  iframe {
+    display: block;
+    width: 100% !important;
+    max-width: 100%;
+    height: 400px !important;
+    border: none !important;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 2rem;
+  }
+  
+  /* ==============================
+     EDIT PROFILE MODAL
+     ============================== */
+  .edit-profile-modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+  }
+  
+  .edit-profile-modal .modal-content {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 2rem;
+    max-width: 500px;
+    width: 90%;
+    margin: 5% auto;
+    position: relative;
+  }
+  
+  .edit-profile-modal .close-btn {
+    position: absolute;
+    top: 1rem; right: 1rem;
+    font-size: 1.5rem;
+    color: var(--text-light);
+    cursor: pointer;
+  }
+  
+  .edit-profile-modal label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-muted);
+    font-weight: bold;
+  }
+  
+  .edit-profile-modal input {
+    width: 100%;
+    padding: 0.7rem;
+    margin-bottom: 1rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--text-muted);
+    background: #334155;
+    color: var(--text-light);
+  }
+  
+  .edit-profile-modal button[type="submit"] {
+    background: var(--primary-color);
+    color: #fff;
+    border: none;
+    padding: 0.7rem 1.2rem;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  
+  .edit-profile-modal button[type="submit"]:hover {
+    opacity: 0.9;
+  }
+  
+  /* ==============================
+     RESPONSIVE BREAKPOINTS
+     ============================== */
+  @media (max-width: 768px) {
+    /* Profile stacks vertically */
+    .my-profile .row {
+      flex-direction: column;
+      text-align: center;
     }
-    50% {
-      box-shadow: 0 6px 20px rgba(75, 71, 217, 0.7), 0 0 20px rgba(75, 71, 217, 0.3);
+    .profile-img-container {
+      margin-bottom: 1rem;
     }
-    100% {
-      box-shadow: 0 6px 15px rgba(75, 71, 217, 0.4), 0 0 0 rgba(75, 71, 217, 0);
+    .my-profile .col-md-9 > .row {
+      flex-direction: column;
+      align-items: center;
+      display: block;
+    }
+  
+    /* Section cards full width */
+    .my-profile.page-container,
+    .page-container.my-4,
+    .my-interested-properties .page-container {
+      padding: 1rem;
+    }
+  
+    /* Properties cards stack */
+    .property-card {
+      flex-direction: column;
+    }
+    .property-card .image-container {
+      width: 100%;
+      height: 180px;
+      margin: 0 0 1rem;
+    }
+    .button-container {
+      text-align: center;
+    }
+  
+    /* Bookings table scroll */
+    .page-container.my-4 table {
+      display: block;
+      overflow-x: auto;
     }
   }
   
-  /* 2) Apply it on hover */
-  .property-card:hover {
-    transform: translateY(-4px);
-    border-color: #6b68d1;
-    /* remove the old static box-shadow or keep it as base */
-    /* box-shadow: 0 10px 30px rgba(75, 71, 217, 0.3); */
-    animation: card-glow 1.5s ease-in-out infinite alternate;
+  @media (max-width: 576px) {
+    .page-container {
+      padding: 1rem;
+    }
+    iframe {
+      height: 250px !important;
+    }
+    .property-card .image-container {
+      height: 150px;
+    }
+    .edit-profile-modal .modal-content {
+      padding: 1rem;
+    }
   }
-
-/* Title color on hover */
-.property-card:hover .property-name {
-  color: #6b68d1;
-}
-
-/* Content text */
-.property-name {
-  font-size: 20px;
-  font-weight: 600;
-  color: #ffffff;
-}
-.property-address {
-  font-size: 14px;
-  color: #a6a6a6;
-  margin: 5px 0 10px;
-}
-
-/* Ratings & interest */
-.star-container i {
-  color: #FFD700;
-  margin-right: 4px;
-}
-.interested-container i {
-  color: #ff4b4b;
-  font-size: 20px;
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-.interested-container i:hover {
-  transform: scale(1.1);
-}
-
-/* Rent & button */
-.rent-container {
-  display: flex;
-  align-items: center;
-  margin-top: 10px;
-}
-.rent {
-  font-size: 18px;
-  font-weight: bold;
-  color: #4B47D9;
-  margin-right: 6px;
-}
-.rent-unit {
-  font-size: 12px;
-  color: #999;
-}
-
-.button-container .btn,
-.btn-primary {
-  background-color: #4B47D9 !important;
-  border-color: #4B47D9 !important;
-  border-radius: 6px;
-  padding: 10px 16px;
-  font-size: 14px;
-  color: #fff !important;
-  transition: background 0.3s;
-}
-.button-container .btn:hover,
-.btn-primary:hover {
-  background-color: #3a39b3 !important;
-  border-color: #3a39b3 !important;
-}
-
-/*---------------------------------------
-  5) Sticky Footer
----------------------------------------*/
-footer {
-  background-color: #2d2d44;
-  color: #c2c2c2;
-  text-align: center;
-  padding: 15px 20px;
-  position: sticky;
-  top: 100vh;
-  margin-top: 20px;
-}
-
-/*---------------------------------------
-  6) Responsive Tweaks
----------------------------------------*/
-@media (max-width: 768px) {
-  .property-card {
-    flex-direction: column;
-  }
-  .property-card .image-container,
-  .property-card .content-container {
-    flex: 1 1 100%;
-    padding: 10px 0;
-  }
-}
-.edit-profile-modal {
-  display: none;
-  position: fixed;
-  z-index: 999;
-  left: 0;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.7);
-  font-family: Arial, sans-serif;
-}
-
-.modal-content {
-  background-color: #1f1f2e;
-  margin: 5% auto;
-  padding: 20px;
-  border-radius: 8px;
-  width: 90%;
-  max-width: 500px;
-  color: #fff;
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
-}
-
-.close-btn {
-  color: #fff;
-  float: right;
-  font-size: 24px;
-  cursor: pointer;
-}
-
-h2 {
-  margin-top: 0;
-  text-align: center;
-  color: #4B47D9;
-}
-
-.form-group {
-  margin-bottom: 15px;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-}
-
-.form-group input {
-  width: 100%;
-  padding: 10px;
-  background-color: #2b2b3d;
-  border: 1px solid #4B47D9;
-  color: #fff;
-  border-radius: 4px;
-}
-
-button[type="submit"] {
-  width: 100%;
-  background-color: #4B47D9;
-  color: #fff;
-  padding: 10px;
-  border: none;
-  border-radius: 4px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-button[type="submit"]:hover {
-  background-color: #6a67e8;
-}
-
+  
