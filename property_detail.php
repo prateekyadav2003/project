@@ -5,10 +5,19 @@ require "includes/database_connect.php";
 $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : NULL;
 $property_id = $_GET["property_id"];
 
-$sql_1 = "SELECT *, p.id AS property_id, p.name AS property_name, c.name AS city_name 
-            FROM properties p
-            INNER JOIN cities c ON p.city_id = c.id 
-            WHERE p.id = $property_id";
+// updated: fetch images from pg_listings
+$sql_1 = "
+  SELECT 
+    p.*,
+    p.id   AS property_id,
+    p.name AS property_name,
+    c.name AS city_name
+  FROM properties p
+  INNER JOIN cities c ON p.city_id = c.id
+  WHERE p.id = $property_id
+";
+
+
 $result_1 = mysqli_query($conn, $sql_1);
 if (!$result_1) {
     echo "Something went wrong!";
@@ -20,6 +29,9 @@ if (!$property) {
     return;
 }
 
+// define upload‐folder paths exactly as in listing.php
+$uploadDir = realpath(__DIR__ . '/uploads/') . '/';
+$uploadUrl = 'uploads/';
 
 $sql_2 = "SELECT * FROM testimonials WHERE property_id = $property_id";
 $result_2 = mysqli_query($conn, $sql_2);
@@ -101,27 +113,54 @@ $is_booked = mysqli_num_rows($result_5) > 0;
         </ol>
     </nav>
 
+    <!-- -----Testing code for image change------ -->
+    <?php
+  // … your existing queries that populate $property …
+
+  // 4‐bis) point at the same uploads folder as listing.php
+  $uploadDir = realpath(__DIR__ . '/uploads/') . '/';   // on-disk path to PG-Finder-main/uploads
+  $uploadUrl = 'uploads/';                              // web URL path
+
+  // Break the DB’s comma-list of image paths into an array
+  // (you inserted this in add_pg.php as “uploads/…,...”)
+  $property_images = !empty($property['images'])
+                   ? explode(',', $property['images'])
+                   : [];
+?>
+     <!-- --------------------------------------- -->
+
     <div id="property-images" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-            <?php
-            $property_images = glob("img/properties/" . $property['property_id'] . "/*");
-            foreach ($property_images as $index => $property_image) {
-            ?>
-                <li data-target="#property-images" data-slide-to="<?= $index ?>" class="<?= $index == 0 ? "active" : ""; ?>"></li>
-            <?php
-            }
-            ?>
-        </ol>
-        <div class="carousel-inner">
-            <?php
-            foreach ($property_images as $index => $property_image) {
-            ?>
-                <div class="carousel-item <?= $index == 0 ? "active" : ""; ?>">
-                    <img class="d-block w-100" src="<?= $property_image ?>" alt="slide">
-                </div>
-            <?php
-            }
-            ?>
+    <ol class="carousel-indicators">
+  <?php foreach ($property_images as $index => $imgPath): ?>
+    <li data-target="#property-images" data-slide-to="<?= $index ?>"
+        class="<?= $index === 0 ? 'active' : '' ?>"></li>
+  <?php endforeach; ?>
+</ol>
+
+<?php
+  // exactly as in listing.php:
+  $uploadDir = realpath(__DIR__ . '/uploads/') . '/';
+  $uploadUrl = 'uploads/';
+
+  // the properties table has a `file` column:
+  $filename = $property['file'] ?? '';
+  // strip any “uploads/” prefix so we can re-apply both parts
+  $filename = str_replace('uploads/', '', $filename);
+
+  if ($filename && file_exists($uploadDir . $filename)) {
+    $imageSrc = $uploadUrl . rawurlencode($filename);
+  } else {
+    // fallback if no file
+    $imageSrc = $uploadUrl . 'bg2.jpg';
+  }
+?>
+<div class="carousel-inner">
+  <div class="carousel-item active">
+    <img class="d-block w-100" src="<?= htmlspecialchars($imageSrc) ?>" alt="Property image">
+  </div>
+</div>
+
+
         </div>
         <a class="carousel-control-prev" href="#property-images" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
