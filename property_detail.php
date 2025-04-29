@@ -92,9 +92,10 @@ $is_booked = mysqli_num_rows($result_5) > 0;
     include "includes/head_links.php";
     ?>
     <link href="css/property_detail.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
-<body>
+<body style="color:white; background:#0f172a;">
     <?php
     include "includes/header.php";
     ?>
@@ -102,12 +103,12 @@ $is_booked = mysqli_num_rows($result_5) > 0;
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb py-2">
             <li class="breadcrumb-item">
-                <a href="index.php">Home</a>
+                <a href="index.php" style="color:#6360f1;">Home</a>
             </li>
             <li class="breadcrumb-item">
-                <a href="property_list.php?city=<?= $property['city_name']; ?>"><?= $property['city_name']; ?></a>
+                <a href="property_list.php?city=<?= $property['city_name']; ?>" style="color:#6360f1;"><?= $property['city_name']; ?></a>
             </li>
-            <li class="breadcrumb-item active" aria-current="page">
+            <li class="breadcrumb-item active" aria-current="page" style="color:white;">
                 <?= $property['property_name']; ?>
             </li>
         </ol>
@@ -162,15 +163,15 @@ $is_booked = mysqli_num_rows($result_5) > 0;
 
 
         </div>
-        <a class="carousel-control-prev" href="#property-images" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
+        <!-- <a class="carousel-control-prev" href="#property-images" role="button" data-slide="prev"> 
+             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only"></span>
+</a>
         <a class="carousel-control-next" href="#property-images" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
-    </div>
+            <span class="carousel-control-next-icon" aria-hidden="true"></span> 
+            <span class="sr-only"></span> 
+        </a>-->
+    </div> 
 
     <div class="property-summary page-container">
         <div class="row no-gutters justify-content-between">
@@ -223,26 +224,37 @@ $is_booked = mysqli_num_rows($result_5) > 0;
             </div>
         </div>
         <div class="detail-container">
-            <div class="property-name"><?= $property['property_name'] ?></div>
-            <div class="property-address"><?= $property['address'] ?></div>
-            <div class="property-gender">
-                <?php
-                if ($property['gender'] == "male") {
-                ?>
-                    <img src="img/male.png">
-                <?php
-                } elseif ($property['gender'] == "female") {
-                ?>
-                    <img src="img/female.png">
-                <?php
-                } else {
-                ?>
-                    <img src="img/unisex.png">
-                <?php
-                }
-                ?>
-            </div>
-        </div>
+    <div class="property-name"><?= $property['property_name'] ?></div>
+    <div class="property-address">
+        <i class="fas fa-map-marker-alt" style="color:#555; margin-right:5px;"></i>
+        <a href="https://www.google.com/maps/search/?api=1&query=<?= urlencode($property['address']) ?>" target="_blank" style="text-decoration:none; color:inherit;">
+            <?= $property['address'] ?>
+        </a>
+    </div>
+    <div class="property-phone">
+        <i class="fas fa-phone-alt" style="color:#555; margin-right:5px;"></i>
+        <a href="tel:<?= $property['contact_phone'] ?>" style="text-decoration:none; color:inherit;">
+            <?= $property['contact_phone'] ?>
+        </a>
+    </div>
+    <div class="property-gender">
+        <?php
+        if ($property['gender'] == "male") {
+        ?>
+            <img src="img/male.png">
+        <?php
+        } elseif ($property['gender'] == "female") {
+        ?>
+            <img src="img/female.png">
+        <?php
+        } else {
+        ?>
+            <img src="img/unisex.png">
+        <?php
+        }
+        ?>
+    </div>
+</div>
         <div class="row no-gutters">
             <div class="rent-container col-6">
                 <div class="rent">₹ <?= number_format($property['rent']) ?>/-</div>
@@ -263,7 +275,7 @@ $is_booked = mysqli_num_rows($result_5) > 0;
         </div>
     </div>
 
-    <div class="property-amenities">
+    <div class="property-amenities" style="color:black;">
         <div class="page-container">
             <h1>Amenities</h1>
             <div class="row justify-content-between">
@@ -340,7 +352,7 @@ $is_booked = mysqli_num_rows($result_5) > 0;
     </div>
 
     <div class="property-rating">
-        <div class="page-container">
+        <div class="page-container" style="color:black;">
             <h1>Property Rating</h1>
             <div class="row align-items-center justify-content-between">
                 <div class="col-md-6">
